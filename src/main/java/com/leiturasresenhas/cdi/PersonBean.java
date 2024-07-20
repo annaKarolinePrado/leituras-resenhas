@@ -13,13 +13,24 @@ import java.util.List;
 public class PersonBean {
     private Person person = new Person();
     private Person selectedPerson;
+    private String searchTerm = "";
+    private List<Person> filteredPersons;
 
     @Inject
     private PersonService personService;
 
     public void save() {
-        personService.savePerson(person);
+        System.out.println("passou na person****************************************");
+        System.out.println(person.getId());
+        if (person.getId() == null) {
+            // Se o ID não estiver definido, é um novo registro
+            personService.savePerson(person);
+        } else {
+            // Se o ID estiver definido, é uma atualização
+            personService.updatePerson(person);
+        }
         person = new Person();
+        loadPersons();
     }
 
     public Person getPerson() {
@@ -32,8 +43,8 @@ public class PersonBean {
     }
 
     public void delete(Person person) {
-        personService.deletePerson(person); // Adicione este método ao seu service
-       // persons = personService.list(); // Atualiza a lista
+        personService.deletePerson(person);
+        loadPersons();
     }
 
     public Person getSelectedPerson() {
@@ -44,11 +55,39 @@ public class PersonBean {
         this.selectedPerson = selectedPerson;
     }
 
+    public void cancel() {
+        person = new Person();
+        selectedPerson = null;
+    }
 
     public List<Person> getPersons() {
-        return personService.list();
+        if (filteredPersons == null) {
+            loadPersons();
+        }
+        return filteredPersons;
     }
+
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public void search() {
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            loadPersons();
+        } else {
+            filteredPersons = personService.search(searchTerm);
+        }
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
+    }
+
+    public String getSearchTerm() {
+        return searchTerm;
+    }
+
+    private void loadPersons() {
+        filteredPersons = personService.list();
     }
 }

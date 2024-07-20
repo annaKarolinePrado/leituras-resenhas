@@ -9,18 +9,29 @@ import java.util.List;
 
 @Stateless
 public class PersonService {
-    @PersistenceContext(unitName = "leituras-resenhasPU")
+
+    @PersistenceContext
     private EntityManager em;
 
     public void savePerson(Person person) {
         em.persist(person);
     }
 
+    public void updatePerson(Person person) {
+        em.merge(person);
+    }
+
+    public void deletePerson(Person person) {
+        em.remove(em.contains(person) ? person : em.merge(person));
+    }
+
     public List<Person> list() {
         return em.createQuery("SELECT p FROM Person p", Person.class).getResultList();
     }
 
-    public void deletePerson(Person person) {
-        em.createQuery("DELETE FROM Person WHERE ID = "+person.getId());
+    public List<Person> search(String searchTerm) {
+        return em.createQuery("SELECT p FROM Person p WHERE p.name LIKE :searchTerm", Person.class)
+                .setParameter("searchTerm", "%" + searchTerm + "%")
+                .getResultList();
     }
 }

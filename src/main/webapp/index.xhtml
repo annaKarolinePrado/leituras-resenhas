@@ -11,11 +11,16 @@
     <h:form id="form">
         <div class="form-container">
             <p:panel header="Cadastro de Pessoa" styleClass="form-panel">
+                <p:inputText value="#{personBean.searchTerm}" placeholder="Pesquisar" styleClass="input-text"/>
+                <p:commandButton value="Pesquisar" actionListener="#{personBean.search}" update="@form" styleClass="search-button"/>
+                    <br></br>
+                <h:inputHidden value="#{personBean.person.id}" />
                 <p:inputText value="#{personBean.person.name}" placeholder="Digite o nome" styleClass="input-text"/>
-                <p:inputText value="#{personBean.person.cpf}" placeholder="Digite o cpf" styleClass="input-text"/>
-                <p:inputText value="#{personBean.person.matricula}" placeholder="Digite a matricula" styleClass="input-text"/>
-                <br></br>
-                <p:commandButton value="Salvar" action="#{personBean.save}" update="personTable form" styleClass="save-button"/>
+                <p:inputText value="#{personBean.person.cpf}" placeholder="Digite o CPF" styleClass="input-text"/>
+                <p:inputText value="#{personBean.person.matricula}" placeholder="Digite a matrícula" styleClass="input-text"/>
+                <br />
+                <p:commandButton value="#{personBean.person.id != null ? 'Atualizar' : 'Salvar'}" action="#{personBean.save}" update="personTable form" styleClass="save-button"/>
+                <p:commandButton value="Cancelar" action="#{personBean.cancel}" update="form" styleClass="cancel-button"/>
             </p:panel>
         </div>
         <div class="table-container">
@@ -29,11 +34,12 @@
                     #{person.cpf}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Matricula</f:facet>
+                    <f:facet name="header">Matrícula</f:facet>
                     #{person.matricula}
                 </h:column>
                 <h:column>
                     <p:commandButton value="Editar" action="#{personBean.edit(person)}" update="form" styleClass="edit-button"/>
+                    <p:commandButton value="Excluir" action="#{personBean.delete(person)}" update="form" styleClass="delete-button"/>
                 </h:column>
             </h:dataTable>
             <h:panelGroup rendered="#{empty personBean.persons}">

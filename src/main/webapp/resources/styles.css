@@ -18,7 +18,7 @@ body {
 /* Painel do formulário */
 .form-panel {
     padding: 20px;
-    background-color: red; /* Fundo vermelho para o painel do formulário */
+    background-color: #ccc;
 }
 
 /* Estilo do input text */
