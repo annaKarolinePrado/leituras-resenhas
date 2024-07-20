@@ -1,0 +1,3 @@
+com\leiturasresenhas\model\Person.class
+com\leiturasresenhas\cdi\PersonBean.class
+com\leiturasresenhas\ejb\PersonService.class
