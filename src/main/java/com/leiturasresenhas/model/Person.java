@@ -17,6 +17,7 @@ public class Person {
     private boolean situacao;
     private LocalDateTime dataNascimento;
 
+
     public Person() {
     }
 
