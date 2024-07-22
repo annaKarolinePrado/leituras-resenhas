@@ -12,7 +12,6 @@ import java.util.List;
 @RequestScoped
 public class PersonBean {
     private Person person = new Person();
-    private Person selectedPerson;
     private String searchTerm = "";
     private List<Person> filteredPersons;
 
@@ -20,13 +19,10 @@ public class PersonBean {
     private PersonService personService;
 
     public void save() {
-        System.out.println("passou na person****************************************");
         System.out.println(person.getId());
         if (person.getId() == null) {
-            // Se o ID não estiver definido, é um novo registro
             personService.savePerson(person);
         } else {
-            // Se o ID estiver definido, é uma atualização
             personService.updatePerson(person);
         }
         person = new Person();
@@ -38,8 +34,7 @@ public class PersonBean {
     }
 
     public void edit(Person person) {
-        this.selectedPerson = person;
-        this.person = new Person(person); // Cria uma cópia do objeto para edição
+        this.person = new Person(person);
     }
 
     public void delete(Person person) {
@@ -47,17 +42,8 @@ public class PersonBean {
         loadPersons();
     }
 
-    public Person getSelectedPerson() {
-        return selectedPerson;
-    }
-
-    public void setSelectedPerson(Person selectedPerson) {
-        this.selectedPerson = selectedPerson;
-    }
-
     public void cancel() {
         person = new Person();
-        selectedPerson = null;
     }
 
     public List<Person> getPersons() {
