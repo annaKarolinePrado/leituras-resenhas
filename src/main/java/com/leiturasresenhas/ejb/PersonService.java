@@ -26,7 +26,7 @@ public class PersonService {
     }
 
     public List<Person> list() {
-        return em.createQuery("SELECT p FROM Person p", Person.class).getResultList();
+        return em.createQuery("SELECT p FROM Person p ORDER BY p.name ASC", Person.class).getResultList();
     }
 
     public List<Person> search(String searchTerm) {

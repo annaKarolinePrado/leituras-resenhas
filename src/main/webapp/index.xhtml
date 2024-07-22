@@ -15,11 +15,16 @@
             <p:panel header="Cadastro de Pessoa" styleClass="form-panel">
                 <p:inputText value="#{personBean.searchTerm}" placeholder="Pesquisar" styleClass="input-text"/>
                 <p:commandButton value="Pesquisar" actionListener="#{personBean.search}" update="@form" styleClass="search-button"/>
-                    <br></br>
+                <br></br>
                 <h:inputHidden value="#{personBean.person.id}" />
                 <p:inputText value="#{personBean.person.name}" placeholder="Digite o nome" styleClass="input-text"/>
                 <p:inputText value="#{personBean.person.cpf}" placeholder="Digite o CPF" styleClass="input-text"/>
                 <p:inputText value="#{personBean.person.matricula}" placeholder="Digite a matrícula" styleClass="input-text"/>
+                <p:selectBooleanCheckbox value="#{personBean.person.situacao}" />
+                <h:outputLabel value="Ativo" for="situacao" />
+                <p:calendar value="#{personBean.person.dataNascimento}" showTime="true" pattern="dd/MM/yyyy HH:mm"
+                            placeholder="Data de Nascimento"
+                            converter="localDateTimeConverter"/>
                 <br />
                 <p:commandButton value="#{personBean.person.id != null ? 'Atualizar' : 'Salvar'}" action="#{personBean.save}" update="personTable form" styleClass="save-button"/>
                 <p:commandButton value="Cancelar" action="#{personBean.cancel}" update="form" styleClass="cancel-button"/>
@@ -38,6 +43,14 @@
                 <h:column>
                     <f:facet name="header">Matrícula</f:facet>
                     #{person.matricula}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Situação</f:facet>
+                    #{person.situacao ? 'Ativo' : 'Inativo'}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Data de Nascimento</f:facet>
+                    #{personBean.getFormattedDataNascimento(person)}
                 </h:column>
                 <h:column>
                     <p:commandButton value="Editar" action="#{personBean.edit(person)}" update="form" styleClass="edit-button"/>

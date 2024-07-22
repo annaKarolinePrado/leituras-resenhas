@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 public class Person {
@@ -11,19 +12,12 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-
     private String cpf;
-
     private Integer matricula;
+    private boolean situacao;
+    private LocalDateTime dataNascimento;
 
     public Person() {
-    }
-
-    public Person(Long id, String name, String cpf, Integer matricula) {
-        this.id = id;
-        this.name = name;
-        this.cpf = cpf;
-        this.matricula = matricula;
     }
 
     public Person(Person person) {
@@ -31,6 +25,8 @@ public class Person {
         this.name = person.getName();
         this.cpf = person.getCpf();
         this.matricula = person.getMatricula();
+        this.situacao = person.isSituacao();
+        this.dataNascimento = person.getDataNascimento();
     }
 
     public Long getId() {
@@ -63,5 +59,21 @@ public class Person {
 
     public void setMatricula(Integer matricula) {
         this.matricula = matricula;
+    }
+
+    public boolean isSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(boolean situacao) {
+        this.situacao = situacao;
+    }
+
+    public LocalDateTime getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDateTime dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 }

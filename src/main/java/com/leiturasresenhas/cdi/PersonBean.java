@@ -8,12 +8,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
+import java.time.format.DateTimeFormatter;
+
 @Named
 @RequestScoped
 public class PersonBean {
     private Person person = new Person();
     private String searchTerm = "";
     private List<Person> filteredPersons;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     @Inject
     private PersonService personService;
@@ -34,7 +37,7 @@ public class PersonBean {
     }
 
     public void edit(Person person) {
-        this.person = new Person(person);
+        this.person = person;
     }
 
     public void delete(Person person) {
@@ -47,9 +50,7 @@ public class PersonBean {
     }
 
     public List<Person> getPersons() {
-        if (filteredPersons == null) {
-            loadPersons();
-        }
+        search();
         return filteredPersons;
     }
 
@@ -75,5 +76,13 @@ public class PersonBean {
 
     private void loadPersons() {
         filteredPersons = personService.list();
+    }
+
+    public String getFormattedDataNascimento(Person person) {
+        if (person.getDataNascimento() != null) {
+            return person.getDataNascimento().format(formatter);
+        } else {
+            return "";
+        }
     }
 }
