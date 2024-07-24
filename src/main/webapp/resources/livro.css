@@ -1,0 +1,81 @@
+.form-panel {
+    padding: 20px;
+    background-color: #e6e6e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-item
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-grid {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.label {
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.value {
+    padding-left: 10px;
+}
+
+.input-field,
+.input-number,
+.select-field,
+.calendar-field,
+.textarea-field {
+    width: 100%;
+    padding: 8px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.save-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    background-color: #45a049;
+}
+
+.cancel-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #e53935;
+}
+
+.new-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.new-button:hover {
+    background-color: #007bb5;
+}
