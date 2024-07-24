@@ -1,0 +1,194 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Cadastro De Livros</title>
+        <h:outputStylesheet name="styles.css"/>
+    </h:head>
+
+    <h:body>
+        <h:form id="livroForm">
+            <ui:include src="menu.xhtml"/>
+
+            <!-- Botão para abrir o diálogo do formulário de cadastro -->
+            <p:commandButton value="Novo Livro +"
+                             oncomplete="PF('dlgCadastroLivro').show()"
+                             update=":livroForm:cadastroPanel"
+                             styleClass="new-button"/>
+
+            <!-- Diálogo para o formulário de cadastro de livros -->
+            <p:dialog header="Cadastro de Livros"
+                      widgetVar="dlgCadastroLivro"
+                      modal="true"
+                      closable="false"
+                      resizable="false">
+                <p:panel id="cadastroPanel" styleClass="form-panel">
+                    <p:messages id="messages"/>
+                    <p:autoUpdate/>
+                    <h:inputHidden value="#{livroBean.livro.id}"/>
+                    <div class="form-container">
+                        <p:panelGrid columns="2" columnClasses="label, value" styleClass="form-grid">
+                            <h:outputLabel for="titulo" value="Título:"/>
+                            <p:inputText id="titulo"
+                                         value="#{livroBean.livro.titulo}"
+                                         required="false"
+                                         label="Título"
+                                         requiredMessage="O título é obrigatório."
+                                         styleClass="input-field"/>
+
+                            <h:outputLabel for="autor" value="Autor:"/>
+                            <p:inputText id="autor"
+                                         value="#{livroBean.livro.autor}"
+                                         required="false"
+                                         label="Autor"
+                                         requiredMessage="O autor é obrigatório."
+                                         styleClass="input-field"/>
+
+                            <h:outputLabel for="genero" value="Gênero:"/>
+                            <p:inputText id="genero"
+                                         value="#{livroBean.livro.genero}"
+                                         required="false"
+                                         label="Gênero"
+                                         requiredMessage="O gênero é obrigatório."
+                                         styleClass="input-field"/>
+
+                            <h:outputLabel for="dataPublicacao" value="Data de Publicação:"/>
+                            <p:calendar id="dataPublicacao"
+                                        value="#{livroBean.livro.dataPublicacao}"
+                                        pattern="dd/MM/yyyy HH:mm"
+                                        required="false"
+                                        label="Data de Publicação"
+                                        requiredMessage="A data de publicação é obrigatória."
+                                        styleClass="calendar-field"
+                                        converter="localDateTimeConverter"/>
+
+                            <h:outputLabel for="editora" value="Editora:"/>
+                            <p:inputText id="editora"
+                                         value="#{livroBean.livro.editora}"
+                                         required="false"
+                                         label="Editora"
+                                         requiredMessage="A editora é obrigatória."
+                                         styleClass="input-field"/>
+
+                            <h:outputLabel for="avaliacao" value="Avaliação (nota de 1 a 10):"/>
+                            <p:inputNumber id="avaliacao"
+                                           value="#{livroBean.livro.avaliacao}"
+                                           maxValue="10"
+                                           decimalPlaces="0"
+                                           required="false"
+                                           label="Avaliação"
+                                           requiredMessage="A avaliação é obrigatória."
+                                           styleClass="input-number">
+                                <f:converter converterId="integerConverter" />
+                            </p:inputNumber>
+
+
+                            <h:outputLabel for="status" value="Status:"/>
+                            <p:selectOneMenu id="status"
+                                             value="#{livroBean.livro.status}"
+                                             required="false"
+                                             label="Status"
+                                             requiredMessage="O status é obrigatório."
+                                             styleClass="select-field">
+                                <f:selectItem itemLabel="Selecione" itemValue=""/>
+                                <f:selectItem itemLabel="Lido" itemValue="Lido"/>
+                                <f:selectItem itemLabel="Não lido" itemValue="Não lido"/>
+                            </p:selectOneMenu>
+
+                            <h:outputLabel for="dataLeitura"
+                                           value="Data de leitura:"
+                                           rendered="#{livroBean.livro.status eq 'Lido'}"/>
+                            <p:calendar id="dataLeitura"
+                                        value="#{livroBean.livro.dataLeitura}"
+                                        pattern="dd/MM/yyyy HH:mm"
+                                        required="false"
+                                        label="Data de Leitura"
+                                        rendered="#{livroBean.livro.status eq 'Lido'}"
+                                        requiredMessage="A data de leitura é obrigatória para livros lidos."
+                                        styleClass="calendar-field"
+                                        converter="localDateTimeConverter"/>
+
+                            <h:outputLabel for="dataPrevistaLeitura"
+                                           value="Data prevista de leitura:"
+                                           rendered="#{livroBean.livro.status eq 'Não lido'}"/>
+                            <p:calendar id="dataPrevistaLeitura"
+                                        value="#{livroBean.livro.dataPrevistaLeitura}"
+                                        pattern="dd/MM/yyyy HH:mm"
+                                        required="false"
+                                        label="Data Prevista de Leitura"
+                                        rendered="#{livroBean.livro.status eq 'Não lido'}"
+                                        requiredMessage="A data prevista de leitura é obrigatória para livros não lidos."
+                                        styleClass="calendar-field"
+                                        converter="localDateTimeConverter"/>
+
+                            <h:outputLabel for="opiniaoResenha" value="Opinião/Resenha:"/>
+                            <p:inputTextarea id="opiniaoResenha"
+                                             value="#{livroBean.livro.opiniaoResenha}"
+                                             rows="4"
+                                             cols="30"
+                                             required="false"
+                                             label="Opinião/Resenha"
+                                             requiredMessage="A opinião/resenha é obrigatória."
+                                             styleClass="textarea-field"/>
+                        </p:panelGrid>
+                        <div class="button-container">
+                            <p:commandButton value="#{livroBean.livro.id != null ? 'Atualizar' : 'Salvar'}"
+                                             action="#{livroBean.save}"
+                                             update="livroTable livroForm"
+                                             oncomplete="PF('dlgCadastroLivro').hide()"
+                                             styleClass="save-button"/>
+                            <p:commandButton value="Cancelar"
+                                             action="#{livroBean.cancel}"
+                                             process="@this"
+                                             oncomplete="PF('dlgCadastroLivro').hide()"
+                                             update="livroForm"
+                                             styleClass="cancel-button"/>
+                        </div>
+                    </div>
+                </p:panel>
+            </p:dialog>
+
+            <!-- Tabela de livros -->
+            <div class="table-container">
+                <h:dataTable id="livroTable" value="#{livroBean.livros}" var="livro" styleClass="data-table">
+                    <h:column>
+                        <f:facet name="header">Título</f:facet>
+                        #{livro.titulo}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Autor</f:facet>
+                        #{livro.autor}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Gênero</f:facet>
+                        #{livro.genero}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Avaliação</f:facet>
+                        #{livro.avaliacao}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Status</f:facet>
+                        #{livro.status ? 'Lido' : 'Não Lido'}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Data de leitura</f:facet>
+                        #{livroBean.getFormattedDataLeitura(livro)}
+                    </h:column>
+                    <h:column>
+                        <p:commandButton value="Editar" action="#{livroBean.edit(livro)}" update="livroForm"
+                                         oncomplete="PF('dlgCadastroLivro').show()" styleClass="edit-button"/>
+                        <p:commandButton value="Excluir" action="#{livroBean.delete(livro)}" update="livroForm"
+                                         styleClass="delete-button"/>
+                    </h:column>
+                </h:dataTable>
+                <h:panelGroup rendered="#{empty livroBean.livros}">
+                    <h:outputText value="Nenhum livro encontrado." styleClass="no-data"/>
+                </h:panelGroup>
+            </div>
+        </h:form>
+    </h:body>
+</ui:composition>

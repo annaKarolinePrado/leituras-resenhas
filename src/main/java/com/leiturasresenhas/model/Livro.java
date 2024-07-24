@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.xml.crypto.Data;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +14,7 @@ public class Livro {
     private String titulo;
     private String autor;
     private String genero;
-    private String dataPublicacao;
+    private LocalDateTime dataPublicacao;
     private String editora;
     private String avaliacao;
     private String opiniaoResenha;
@@ -30,7 +29,7 @@ public class Livro {
                  String titulo,
                  String autor,
                  String genero,
-                 String dataPublicacao,
+                 LocalDateTime dataPublicacao,
                  String editora,
                  String avaliacao,
                  String opiniaoResenha,
@@ -78,10 +77,10 @@ public class Livro {
         this.genero = genero;
     }
 
-    public String getDataPublicacao() {
+    public LocalDateTime getDataPublicacao() {
         return dataPublicacao;
     }
-    public void setDataPublicacao(String dataPublicacao) {
+    public void setDataPublicacao(LocalDateTime dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
     }
 

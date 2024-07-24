@@ -1,11 +1,10 @@
 package com.leiturasresenhas.cdi;
 
 import com.leiturasresenhas.ejb.LivroService;
-import com.leiturasresenhas.ejb.PersonService;
 import com.leiturasresenhas.model.Livro;
-import com.leiturasresenhas.model.Person;
-
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.time.format.DateTimeFormatter;
@@ -47,10 +46,14 @@ public class LivroBean {
     }
 
     public void delete(Livro livro) {
-        livroService.deleteLivro(livro);
-        loadLivros();
+        try {
+            livroService.deleteLivro(livro);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Livro excluído com sucesso", null));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir o livro", e.getMessage()));
+            e.printStackTrace();
+        }
     }
-
     public void cancel() {
         livro = new Livro();
     }
@@ -80,7 +83,14 @@ public class LivroBean {
         return searchTerm;
     }
 
-    public String getFormattedDataLeitura(Livro livro) {
+    public String getFormattedDataPublicacao(Livro livro) {
+        if (livro.getDataPublicacao() != null) {
+            return livro.getDataPublicacao().format(formatter);
+        } else {
+            return "";
+        }
+
+    }public String getFormattedDataLeitura(Livro livro) {
         if (livro.getDataLeitura() != null) {
             return livro.getDataLeitura().format(formatter);
         } else {

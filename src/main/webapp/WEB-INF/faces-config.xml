@@ -7,6 +7,10 @@
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <param-value>server</param-value> <!-- Pode ser 'client' também -->
     </context-param>
+    <converter>
+        <converter-id>integerConverter</converter-id>
+        <converter-class>com.leiturasresenhas.converters.IntegerConverter</converter-class>
+    </converter>
 
 
 </faces-config>
