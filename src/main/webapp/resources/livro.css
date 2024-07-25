@@ -1,11 +1,13 @@
 .form-panel {
     padding: 20px;
-    background-color: #e6e6e6;
+    background-color: #d9d9d9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    align-item
+    width: 100%;
+    font-size: 1.1em;
 }
 
 .form-container {
+    background-color: #d9d9d9;
     display: flex;
     flex-direction: column;
 }
@@ -13,6 +15,7 @@
 .form-grid {
     width: 100%;
     margin-bottom: 20px;
+        font-family: 'URW Chancery L', cursive;
 }
 
 .label {
@@ -41,7 +44,7 @@
     margin-top: 20px;
 }
 
-.save-button {
+.save-button, .cancel-button {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -54,28 +57,35 @@
     background-color: #45a049;
 }
 
-.cancel-button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
 .cancel-button:hover {
     background-color: #e53935;
 }
 
-.new-button {
+.button-adicionar-livro {
     background-color: #008CBA;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 2%;
+    margin-bottom: 4%;
 }
 
-.new-button:hover {
+button-adicionar-livro:hover {
     background-color: #007bb5;
+}
+
+.data-table {
+    width: 100%;
+    font-size: 1.1em;
+}
+
+.fas {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+.livroForm {
+    font-family: 'URW Chancery L', cursive;
 }

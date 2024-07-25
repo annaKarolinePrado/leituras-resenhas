@@ -7,17 +7,18 @@
     <h:head>
         <title>Cadastro De Livros</title>
         <h:outputStylesheet name="livro.css"/>
+        <h:outputStylesheet library="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     </h:head>
 
     <h:body>
-        <h:form id="livroForm">
+        <h:form id="livroForm" styleClass="livroForm">
             <ui:include src="menu.xhtml"/>
 
             <!-- Botão para abrir o diálogo do formulário de cadastro -->
             <p:commandButton value="Novo Livro +"
                              oncomplete="PF('dlgCadastroLivro').show()"
                              update=":livroForm:cadastroPanel"
-                             styleClass="new-button"/>
+                             styleClass="button-adicionar-livro"/>
 
             <!-- Diálogo para o formulário de cadastro de livros -->
             <p:dialog header="Cadastro de Livros"
@@ -184,9 +185,14 @@
                     </h:column>
 
                     <h:column>
-                        <p:commandButton value="Editar" action="#{livroBean.edit(livro)}" update="livroForm"
-                                         oncomplete="PF('dlgCadastroLivro').show()" styleClass="edit-button"/>
-                        <p:commandButton value="Excluir" action="#{livroBean.delete(livro)}" update="livroForm"
+                        <p:commandButton value="Editar"
+                                         action="#{livroBean.edit(livro)}"
+                                         update="livroForm"
+                                         oncomplete="PF('dlgCadastroLivro').show()"
+                                         styleClass="edit-button"/>
+                        <p:commandButton value="Excluir"
+                                         action="#{livroBean.delete(livro)}"
+                                         update="livroForm"
                                          styleClass="delete-button"/>
                     </h:column>
                 </h:dataTable>
