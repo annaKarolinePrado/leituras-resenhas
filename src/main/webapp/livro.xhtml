@@ -154,7 +154,10 @@
 
             <!-- Tabela de livros -->
             <div class="table-container">
-                <h:dataTable id="livroTable" value="#{livroBean.livros}" var="livro" styleClass="data-table">
+                <h:dataTable id="livroTable"
+                             value="#{livroBean.livros}"
+                             var="livro"
+                             styleClass="data-table styled-table" >
                     <h:column>
                         <f:facet name="header">Título</f:facet>
                         #{livro.titulo}
