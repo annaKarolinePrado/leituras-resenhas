@@ -39,6 +39,12 @@ public class LivroInitBean {
         livros.add(new Livro(null, "A Hora da Estrela", "Clarice Lispector", "Drama", LocalDateTime.of(1977, 10, 1, 0, 0),
                 "Editora E", "5 ", "Emocionante e reflexivo", false,
                 LocalDateTime.of(2024, 7, 5, 0, 0), LocalDateTime.of(2024, 6, 5, 0, 0)));
+
+        List<Livro> livrosDatabase = livroService.list();
+        if (livrosDatabase.size() > 0) {
+            return;
+        }
         livros.forEach(livro -> livroService.saveLivro(livro));
+
     }
 }

@@ -14,13 +14,24 @@
         <h:form id="livroForm" styleClass="livroForm">
             <ui:include src="menu.xhtml"/>
 
-            <!-- Botão para abrir o diálogo do formulário de cadastro -->
-            <p:commandButton value="Novo Livro +"
-                             oncomplete="PF('dlgCadastroLivro').show()"
-                             update=":livroForm:cadastroPanel"
-                             styleClass="button-adicionar-livro"/>
+            <div class="header-container">
+                <p:commandButton value="Novo Livro +"
+                                 oncomplete="PF('dlgCadastroLivro').show()"
+                                 update=":livroForm:cadastroPanel"
+                                 styleClass="button-adicionar-livro"/>
 
-            <!-- Diálogo para o formulário de cadastro de livros -->
+                <div class="search-container">
+                    <p:inputText id="searchInput"
+                                 value="#{livroBean.searchTerm}"
+                                 placeholder="Digite para pesquisar livros"
+                                 styleClass="input-field"/>
+                    <p:commandButton value="Pesquisar"
+                                     action="#{livroBean.search}"
+                                     update="livroTable"
+                                     styleClass="button-pesquisar"/>
+                </div>
+            </div>
+
             <p:dialog header="Cadastro de Livros"
                       widgetVar="dlgCadastroLivro"
                       modal="true"
